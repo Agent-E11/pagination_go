@@ -8,7 +8,11 @@
 </head>
 <body>
     <div id="page">
-        {{ .Items }}
+        {{ range .Items }}
+            <p>{{ . }}</p>
+        {{ end }}
+        <a href="{{ .PrevPage }}">Previous</>
+        <a href="/{{ .NextPage }}">Next</a>
     </div>
 </body>
 </html>

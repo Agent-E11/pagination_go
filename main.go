@@ -11,14 +11,10 @@ import (
 )
 
 func main() {
-    //var quantity int = 5
-    //for i := 0; i < 10; i++ {
-    //    fmt.Printf("Page %d: %v\n", i, dbc.GetPage(dbc.DB, i, quantity))
-    //}
-
     router := httprouter.New()
 
-    router.GET("/:page", Index)
+    router.GET("/list/:test", List)
+    router.GET("/home/:page", Index)
 
     log.Print("Running http server...")
     http.ListenAndServe(":8000", router)
@@ -40,4 +36,15 @@ func Index(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
     }
 
     tmpl.Execute(w, data)
+}
+
+func List(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+    tmpl := template.Must(template.ParseFiles("list.tmpl.html"))
+
+    pageNum, err := strconv.Atoi(ps.ByName("page"))
+    if err != nil {
+        w.WriteHeader(404)
+    }
+
+    tmpl.Execute(w, dbc.GetPage(dbc.DB, pageNum, 5))
 }
