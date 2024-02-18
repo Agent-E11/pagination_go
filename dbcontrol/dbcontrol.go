@@ -1,5 +1,15 @@
 package dbcontrol
 
+// import "log"
+
+func GetPage(db []string, page int, quantity int) []string {
+    offset := page * quantity
+    // log.Println("page:", page)
+    // log.Println("quantity:", quantity)
+    // log.Println("offset:", offset)
+    return db[offset:offset+quantity]
+}
+
 // This is a "database" full of strings
 var DB = []string{
 	"Lorem",
