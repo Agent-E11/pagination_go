@@ -1,5 +1,19 @@
-<ul>
-    {{ range . }}
-    <li>{{ . }}</li>
-    {{ end }}
-</ul>
+<div id="page">
+    <ul id="list" class="list-group">
+        {{ range .Items }}
+        <li class="list-group-item">{{ . }}</li>
+        {{ end }}
+    </ul>
+    <button hx-get="/list-page/{{ .PrevPage }}"
+        hx-swap="outerHTML"
+        hx-trigger="click"
+        hx-target="#page">
+        Previous
+    </button>
+    <button hx-get="/list-page/{{ .NextPage }}"
+        hx-swap="outerHTML"
+        hx-trigger="click"
+        hx-target="#page">
+        Next
+    </button>
+</div>
